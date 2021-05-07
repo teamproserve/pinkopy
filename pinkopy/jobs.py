@@ -13,12 +13,14 @@ class JobSession(BaseSession):
                                           'get_jobs']
         super(JobSession, self).__init__(cache_methods=cache_methods, *args, **kwargs)
 
-    def get_jobs(self, client_id, job_filter=None, last=None):
+    def get_jobs(self, client_id, job_filter=None, limit=None, offset=None, last=None):
         """Get jobs.
 
         Args:
             client_id (str): client id for which to get jobs
-            job_filted (optional[str]): job filter, ex. backup, restore
+            job_filter (optional[str]): job filter, ex. backup, restore
+            limit (optional[int]): Limit the number of results
+            offset (optional[int]): Used in combination with limit to get 'pagination' going
             last (optional[int]): get this many most recent jobs
 
         Returns:
@@ -33,7 +35,7 @@ class JobSession(BaseSession):
         }
         if job_filter is not None:
             qstr_vals['jobFilter'] = job_filter
-        res = self.request('GET', path, qstr_vals=qstr_vals)
+        res = self.request('GET', path, qstr_vals=qstr_vals, limit=limit, offset=offset)
         data = res.json()
         try:
             jobs = sorted(
