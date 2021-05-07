@@ -97,7 +97,7 @@ class BaseSession(object):
         self.logout()
 
     def request(self, method, path, attempt=None, headers=None, payload=None,
-                payload_nondict=None, qstr_vals=None, service=None):
+                payload_nondict=None, qstr_vals=None, service=None, limit=None, offset=None):
         """Make request.
 
         Args:
@@ -109,6 +109,8 @@ class BaseSession(object):
             payload_nondict (optional[str]): payload raw data
             qstr_vals (optional[dict]): query string parameters to add
             service (optional[str]): URL and path to root of api
+            limit (optional[int]): Limit results when applicable
+            offset (optional[int]): Used in combination with limit to get 'pagination' going
 
         Returns:
             response object
@@ -120,6 +122,10 @@ class BaseSession(object):
         attempt = 1 if not attempt else attempt
         service = service if service else self.service
         headers = headers if headers else self.headers
+        if limit is not None and not headers['limit']:
+            headers['limit'] = limit
+        if offset is not None and limit is not None:
+            headers['offset'] = offset
         url = urljoin(service, path)
         try:
             if method == 'POST':
