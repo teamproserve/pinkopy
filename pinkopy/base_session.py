@@ -122,10 +122,10 @@ class BaseSession(object):
         attempt = 1 if not attempt else attempt
         service = service if service else self.service
         headers = headers if headers else self.headers
-        if limit is not None and not headers['limit']:
-            headers['limit'] = limit
-        if offset is not None and limit is not None:
-            headers['offset'] = offset
+        if limit is not None:
+            headers['limit'] = str(limit)
+        if (offset is not None) and (limit is not None):
+            headers['offset'] = str(offset)
         url = urljoin(service, path)
         try:
             if method == 'POST':
