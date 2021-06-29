@@ -23,13 +23,13 @@ tests_require = [
 
 setup(
     name='pinkopy',
-    version='2.1.3',
+    version='2.1.3-dev',
     description='Python wrapper for Commvault api',
     long_description=readme,
     author='Herkermer Sherwood',
     author_email='theherk@gmail.com',
     url='https://github.com/teamproserve/pinkopy',
-    download_url='https://github.com/teamproserve/pinkopy/archive/2.1.3.zip',
+    download_url='https://github.com/teamproserve/pinkopy/archive/2.1.3-dev.zip',
     packages=find_packages(),
     platforms=['all'],
     license='MIT',
