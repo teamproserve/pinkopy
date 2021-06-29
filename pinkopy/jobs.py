@@ -2,7 +2,6 @@ import logging
 
 from .base_session import BaseSession
 from .exceptions import PinkopyError, raise_requests_error
-
 log = logging.getLogger(__name__)
 
 
@@ -49,7 +48,8 @@ class JobSession(BaseSession):
             )
         if last:
             jobs = jobs[-last:]
-        return jobs
+        result = {"jobs": jobs, "total": data['totalRecordsWithoutPaging']}
+        return result
 
     @staticmethod
     def get_subclient_jobs(jobs, subclient_id=None, subclient_name=None, last=None):
