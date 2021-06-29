@@ -2,7 +2,6 @@ import logging
 
 from .base_session import BaseSession
 from .exceptions import PinkopyError, raise_requests_error
-from pprint import pprint
 log = logging.getLogger(__name__)
 
 
